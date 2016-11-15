@@ -1,0 +1,47 @@
+#!/bin/bash
+
+#HR apps can connect to IT apps.
+#IT apps cannot connect to HR apps.
+#All IT apps can communicate amongst themselves.
+#All HR apps can communicate amongst themselves.
+#IT only runs apps on port 80. Assume an HR overlay with the agent subnets carved from 192.168.0.0/16 and an IT subnet carved from 10.150.0.0/16.
+
+#create dcos-isolation chain
+iptables -N dcos-isolation
+iptables -A dcos-isolation -j REJECT # Changes it to default reject
+
+#create the sets
+ipset create overlays list:set
+ipset create it hash:net
+ipset create hr hash:net
+
+#define the subnets and policies
+ipset add it 10.250.0.0/16
+ipset add hr 192.168.0.0/16
+
+#create "simple_allowed" ip set
+ipset create simple_allowed hash:net,net
+ipset add simple_allowed 192.168.0.0./16,192.168.0.0./16
+ipset add simple_allowed 10.250.0.0/16,10.250.0.0/16
+
+#create "complex_allowed" ip set
+ipset create complex_allowed hash:net,port,net
+ipset add complex_allowed 192.168.0.0/16,80,10.250.0.0/16 #this allows traffic from HR to IT on port 80
+
+#Add to FORWARD table in kernel - "overlays" to "overlays" - send to "dcos-isolation"
+iptables -I FORWARD -m set --match-set overlays src -m set --match-set overlays dst -j dcos-isolation
+#Add to "dcos-isolation": "simple_allowed" RETURN
+iptables -A dcos-isolation -m set --match-set simple_allowed src,dst -j RETURN
+#Add to "dcos-isolation": "complex_allowed" RETURN
+iptables -A dcos-isolation -m set --match-set complex_allowed src,dst,dst -j RETURN
+#Add to "dcos-isolation": ESTABLISH/RELATED RETURN
+iptables -A dcos-isolation -m conntrack --ctstate RELATED,ESTABLISHED -j RETURN
+#Add to "dcos-isolation": "it" to "it" RETURN
+iptables -I dcos-isolation -m set --match-set it src -m set --match-set it dst -j RETURN
+#Add to "dcos-isolation": "hr" to "hr" RETURN
+iptables -I dcos-isolation -m set --match-set hr src -m set --match-set hr dst -j RETURN
+
+
+#DEBUG
+#iptables -L -v -n
+#iptables -I dcos-isolation -j TRACE
