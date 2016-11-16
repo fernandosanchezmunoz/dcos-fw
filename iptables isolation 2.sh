@@ -19,7 +19,7 @@ iptables -A $POLICY_NAME -j REJECT
 #Overall traffic to apply this policy to as traffic is being forwarded
 ipset create overlays list:set
 
-#define the sets as subnets
+#define the $NAME_x sets (representing each overlay network) as subnets
 ipset create $NAME_0 hash:net
 ipset create $NAME_1 hash:net
 
