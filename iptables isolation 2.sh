@@ -23,7 +23,7 @@ ipset create overlays list:set
 ipset create $NAME_0 hash:net
 ipset create $NAME_1 hash:net
 
-#add the subnet values 
+#add the subnet value for each overlay network
 ipset add $NAME_0 $SUBNET_0
 ipset add $NAME_1 $SUBNET_1
 
