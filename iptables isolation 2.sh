@@ -16,8 +16,8 @@ iptables -N $POLICY_NAME
 iptables -A $POLICY_NAME -j REJECT 
 
 #create the sets
-#overlays = overall traffic to apply this policy to as traffic is being forwarded -- needs clarification
-#how do we match on "any traffic coming from or going to any overlay"?
+#overlays = overall traffic to apply this policy to as traffic is being forwarded 
+#needs clarification: how do we match on "any traffic coming from or going to any overlay"?
 ipset create overlays list:set
 
 #define the $NAME_x sets (representing each overlay network) as subnets
