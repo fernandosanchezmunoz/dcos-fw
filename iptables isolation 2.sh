@@ -1,6 +1,8 @@
 #!/bin/bash
-
-#Edited comments from https://docs.mesosphere.com/1.8/administration/overlay-networks/isolation/
+#Create an iptables $POLICY in order to apply it to the FORWARD chain in all hosts of a cluster so that traffic forwarded 
+#on a every host is validated against a set of ipset tables to decide whether it's allowed or not.
+#
+#Edited comments from https://docs.mesosphere.com/1.8/administration/overlay-networks/isolation/ :
 #Assume a $NAME_0 overlay w/ the agent subnet carved from $SUBNET_0
 #plus a   $NAME_1 overlay w/ the agent subnet carved from $SUBNET_1
 #All $NAME_0 apps can communicate amongst themselves.
