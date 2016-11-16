@@ -1,11 +1,10 @@
 #!/bin/bash
 
 #Edited comments from https://docs.mesosphere.com/1.8/administration/overlay-networks/isolation/
-#$NAME_1 apps can connect to $NAME_0  apps.
+#$NAME_1 apps can connect to $NAME_0  apps on port $PORT (80 in the example).
 #$NAME_0 apps cannot connect to $NAME_1 apps.
 #All $NAME_0  apps can communicate amongst themselves.
 #All $NAME_1 apps can communicate amongst themselves.
-#$NAME_0  only runs apps on port 80. 
 
 #Assume a $NAME_0 overlay w/ the agent subnet carved from $SUBNET_0
 #plus a   $NAME_1 overlay w/ the agent subnet carved from $SUBNET_1
