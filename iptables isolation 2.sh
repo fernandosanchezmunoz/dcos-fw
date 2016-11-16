@@ -60,8 +60,6 @@ iptables -I $POLICY_NAME -m set --match-set $NAME_0  src -m set --match-set $NAM
 #Add to "$POLICY_NAME": "$NAME_1" to "$NAME_1" --> Action=RETURN
 iptables -I $POLICY_NAME -m set --match-set $NAME_1 src -m set --match-set $NAME_1 dst -j RETURN
 
-
-
 #DEBUG
 #iptables -L -v -n
 #iptables -I $POLICY_NAME -j TRACE
