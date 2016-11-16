@@ -9,7 +9,7 @@ NAME_1="dcos-1"
 SUBNET_1="192.168.32.0/19"
 
 POLICY_NAME="dcos-isolation"
-"allow-selves-plus-80-dcos-1-to-dcos"
+#"allow-selves-plus-80-dcos-1-to-dcos"
 
 $SIMPLE="simple_allowed_selves"
 
