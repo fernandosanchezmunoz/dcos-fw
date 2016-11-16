@@ -6,8 +6,8 @@
 #All $NAME_1 apps can communicate amongst themselves.
 #$NAME_0  only runs apps on port 80. 
 
-#Assume an $NAME_1 overlay w$NAME_0 h #the agent subnets carved from $SUBNET_1 
-#$NAME_0  subnet carved from $SUBNET_0.
+#Assume a $NAME_0 overlay w/ the agent subnet carved from $SUBNET_0
+#plus a   $NAME_1 overlay w/ the agent subnet carved from $SUBNET_1
 
 #########
 #create $POLICY_NAME chain
