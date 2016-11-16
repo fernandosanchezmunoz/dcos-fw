@@ -16,7 +16,7 @@ iptables -N $POLICY_NAME
 iptables -A $POLICY_NAME -j REJECT 
 
 #create the sets
-#overlays = overall traffic to apply this policy to as traffic is being forwarded 
+#"overlays" ip set should match = overall traffic to apply this policy to as traffic is being forwarded 
 #needs clarification: how do we match on "any traffic coming from or going to any overlay"?
 ipset create overlays list:set
 
