@@ -2,7 +2,7 @@
 
 #Edited comments from https://docs.mesosphere.com/1.8/administration/overlay-networks/isolation/
 #$NAME_1 apps can connect to $NAME_0  apps.
-#$NAME_0  apps cannot connect to $NAME_1 apps.
+#$NAME_0 apps cannot connect to $NAME_1 apps.
 #All $NAME_0  apps can communicate amongst themselves.
 #All $NAME_1 apps can communicate amongst themselves.
 #$NAME_0  only runs apps on port 80. 
