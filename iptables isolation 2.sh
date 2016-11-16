@@ -38,7 +38,7 @@ iptables -I FORWARD -m set --match-set overlays src -m set --match-set overlays 
 #Add to "$POLICY_NAME": ESTABLISH/RELATED --> Action=RETURN
 iptables -A $POLICY_NAME -m conntrack --ctstate RELATED,ESTABLISHED -j RETURN
 
-#create $SIMPLE ip set
+#create $SIMPLE ip set: match on net,net
 ipset create $SIMPLE hash:net,net
 #$SIMPLE=Apply from $SUBNET1 to $SUBNET1
 ipset add $SIMPLE $SUBNET_1,$SUBNET_1
@@ -47,7 +47,7 @@ ipset add $SIMPLE $SUBNET_0,$SUBNET_0
 #Add to "$POLICY_NAME": "$SIMPLE" match --> Action=RETURN
 iptables -A $POLICY_NAME -m set --match-set $SIMPLE src,dst -j RETURN
 
-#create $COMPLEX ip set
+#create $COMPLEX ip set: match on net,port,net
 ipset create $COMPLEX hash:net,port,net
 #$COMPLEX="Apply to communication from $SUBNET1 to $SUBNET0:$PORT "
 ipset add $COMPLEX $SUBNET_1,$PORT,$SUBNET_0 #this allows traffic from $NAME_1 to $NAME_0 on port $PORT
