@@ -13,9 +13,6 @@
 #########
 #create $POLICY_NAME chain
 iptables -N $POLICY_NAME
-#set $POLICY_NAME default --> Action=REJECT
-#"REJECT anything that doesn't match any of the rules in the $POLICY"
-iptables -A $POLICY_NAME -j REJECT 
 
 #create the sets
 #"overlays" ip set should match = overall traffic to apply this policy to as traffic is being forwarded 
@@ -61,6 +58,10 @@ iptables -A $POLICY_NAME -m set --match-set $COMPLEX src,dst,dst -j RETURN
 iptables -I $POLICY_NAME -m set --match-set $NAME_0  src -m set --match-set $NAME_0  dst -j RETURN
 #Add to "$POLICY_NAME": "$NAME_1" to "$NAME_1" --> Action=RETURN
 iptables -I $POLICY_NAME -m set --match-set $NAME_1 src -m set --match-set $NAME_1 dst -j RETURN
+
+#set $POLICY_NAME default --> Action=REJECT
+#"REJECT anything that doesn't match any of the rules in the $POLICY"
+iptables -A $POLICY_NAME -j REJECT 
 
 #DEBUG
 #iptables -L -v -n
